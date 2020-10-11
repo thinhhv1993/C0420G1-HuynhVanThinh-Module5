@@ -1,0 +1,54 @@
+const arrWords = [
+    { id: 1, en: 'action', vn: 'hành động', memorized: true },
+    { id: 2, en: 'actor', vn: 'diễn viên', memorized: false },
+    { id: 3, en: 'activity', vn: 'hoạt động', memorized: true },
+    { id: 4, en: 'active', vn: 'chủ động', memorized: true },
+    { id: 5, en: 'bath', vn: 'tắm', memorized: false },
+    { id: 6, en: 'bedroom', vn: 'phòng ngủ', memorized: true }
+];
+
+
+---- CARD COMPONENT ----
+
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-card',
+    template: `
+        <div class="card">
+            <p>Khoa Pham Training</p>
+        </div>
+    `,
+    styles: [`
+        .card {
+            padding: 5px;
+            margin: 5px;
+            background: #fff;
+            border-radius: 2px;
+            display: inline-block;
+            width: 300px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        }
+    `]
+})
+
+export class CardComponent {}
+
+
+---- CARD COMPONENT ----
+
+---- Express middleware ----
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,X-Requested-With');
+    next();
+});
+
+----CONTACTS ----
+
+[
+    { id: 1, name: 'Teo', phoneNumber: '0123' },
+    { id: 2, name: 'Ti', phoneNumber: '0456' },
+    { id: 3, name: 'Tun', phoneNumber: '0789' },
+]

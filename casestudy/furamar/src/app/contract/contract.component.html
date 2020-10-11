@@ -1,0 +1,140 @@
+<br>
+<div class="container-fluid background">
+  <div class="row">
+    <div class="col-4">
+      <h3>Contract List</h3>
+    </div>
+    <div class="col-4">
+      <button type="button" data-toggle="modal" data-target="#formAdd" class="btn btn-success" (click)="resetForm()">Add Contract</button>
+    </div>
+  </div>
+  <br>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <td>Stt</td>
+      <td>Id</td>
+      <td>Customer Name</td>
+      <td>Service Name</td>
+      <td>Star Date</td>
+      <td>End Date</td>
+      <td>Deposits</td>
+      <td>Total</td>
+      <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let contract of listContract | paginate: { itemsPerPage: 3,currentPage: q };let i = index">
+      <td>{{i}}</td>
+      <td>{{contract.contractId}}</td>
+      <td>{{contract.customer.customerName}}</td>
+      <td>{{contract.service.serviceName}} </td>
+      <td>{{contract.contractStarDate}}</td>
+      <td>{{contract.contractEndDate}}</td>
+      <td>{{contract.contractDeposits}}</td>
+      <td>{{contract.contractTotal}}</td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formDelete" (click)="checkDelete(contract.id,contract.contractId)">
+          Delete
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formAdd"
+                (click)="changContract(contract,contract.id)">
+          Edit
+        </button>
+      </td>
+    </tr>
+    </tbody>
+    <pagination-controls (pageChange)="q = $event"></pagination-controls>
+  </table>
+</div>
+<div class="modal fade" id="formDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <form [formGroup]="contractForm">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">Delete Customer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div>
+          <p> Do you want delete Customer {{contractId}} </p>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-success mb-2" data-dismiss="modal" (click)="deleteContract()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="formAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="contractForm">
+        <label>ID Contract</label>
+        <input class="form-control" formControlName="contractId">
+        <div class="error" *ngIf="contractForm.get('contractId').touched && contractForm.get('contractId').invalid">Invalid
+          <p class="error" *ngIf="contractForm.get('contractId').hasError('required')"> must Required</p>
+        </div>
+        <label>Name Customer</label>
+        <select class="form-control" formControlName="customerId">
+          <option *ngFor="let customer of listCustomer" value="{{customer.id}}">{{customer.customerName}}</option>
+        </select>
+        <label>Name Service</label>
+        <select class="form-control" formControlName="serviceId">
+          <option *ngFor="let service of listService" value="{{service.id}}">{{service.serviceName}}</option>
+        </select>
+        <label>Star Date</label>
+        <input type="date" class="form-control" formControlName="contractStarDate" (change)="compareTwoDates()"  [(ngModel)]="star">
+        <div class="error" *ngIf="contractForm.get('contractStarDate').touched && contractForm.get('contractStarDate').invalid">Invalid
+          <p class="error" *ngIf="contractForm.get('contractStarDate').hasError('required')"> must Required</p>
+          <p class="error" *ngIf="contractForm.get('contractStarDate').hasError('pattern')"> must format (yyyy-mm-dd)</p>
+          <p class="error" *ngIf="contractForm.get('contractStarDate').hasError('checkDate')">  must error and date > date now</p>
+        </div>
+        <label>End Date</label>
+        <input type="date" class="form-control" formControlName="contractEndDate" (change)="compareTwoDates()" [(ngModel)]="end">
+        <div class="error" *ngIf="contractForm.get('contractEndDate').touched && contractForm.get('contractEndDate').invalid">Invalid
+          <p class="error" *ngIf="contractForm.get('contractEndDate').hasError('required')"> must Required</p>
+          <p class="error" *ngIf="contractForm.get('contractStarDate').hasError('pattern')"> must format (yyyy-mm-dd)</p>
+          <p class="error" *ngIf="contractForm.get('contractEndDate').hasError('checkDate')"> must error  and date > date now</p>
+        </div>
+        <p class="error" *ngIf="error">day end > day star</p>
+        <label>Deposits</label>
+        <input  class="form-control" formControlName="contractDeposits">
+        <div class="error" *ngIf="contractForm.get('contractDeposits').touched && contractForm.get('contractDeposits').invalid">Invalid
+          <p class="error" *ngIf="contractForm.get('contractDeposits').hasError('required')"> must Required</p>
+          <p class="error" *ngIf="contractForm.get('contractDeposits').hasError('number')"> must format is number > 0</p>
+        </div>
+        <label>Total</label>
+        <input  class="form-control" formControlName="contractTotal">
+        <div class="error" *ngIf="contractForm.get('contractTotal').touched && contractForm.get('contractTotal').invalid">Invalid
+          <p class="error" *ngIf="contractForm.get('contractTotal').hasError('required')"> must Required</p>
+          <p class="error" *ngIf="contractForm.get('contractTotal').hasError('number')"> must format is number > 0</p>
+        </div>
+        <br>
+      </form>
+        <div *ngIf="!checkForm; else edit">
+          <button type="submit" class="btn btn-success mb-2" [disabled]="contractForm.invalid || error"  (click)="onSubmit()"
+                  data-dismiss="modal">Add
+          </button>
+        </div>
+        <ng-template #edit>
+          <button type="submit" class="btn btn-success mb-2" [disabled]="contractForm.invalid || error" (click)="editContract()"
+                  data-dismiss="modal">Edit
+          </button>
+        </ng-template>
+    </div>
+  </div>
+</div>

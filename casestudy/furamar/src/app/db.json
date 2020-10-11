@@ -1,0 +1,217 @@
+{
+  "Service": [
+    {
+      "id": 0,
+      "serviceId": "DV1010",
+      "serviceName": "124i69123123",
+      "serviceFloors": "12",
+      "serviceAcreage": "12",
+      "serviceMaxNumberPeople": "12",
+      "serviceCost": "12",
+      "serviceStatus": "12",
+      "serviceRentalType": "12"
+    },
+    {
+      "serviceId": "DV1234",
+      "serviceName": "a",
+      "serviceAcreage": "10",
+      "serviceFloors": "10",
+      "serviceMaxNumberPeople": "10",
+      "serviceCost": "10",
+      "serviceStatus": "ok",
+      "serviceRentalType": "10",
+      "id": 1
+    },
+    {
+      "serviceId": "DV1234",
+      "serviceName": "a",
+      "serviceAcreage": "10",
+      "serviceFloors": "10",
+      "serviceMaxNumberPeople": "10",
+      "serviceCost": "10",
+      "serviceStatus": "ok",
+      "serviceRentalType": "10",
+      "id": 2
+    },
+    {
+      "serviceId": "DV1234",
+      "serviceName": "a",
+      "serviceAcreage": "10",
+      "serviceFloors": "10",
+      "serviceMaxNumberPeople": "10",
+      "serviceCost": "10",
+      "serviceStatus": "ok",
+      "serviceRentalType": "10",
+      "id": 3
+    }
+  ],
+  "Customer": [
+    {
+      "id": 1,
+      "customerId": "KH1235",
+      "customerName": "Thinh",
+      "customerBirthday": "08/071993",
+      "customerCard": "123456789",
+      "customerPhone": "123456789",
+      "customerEmail": "thinhhv1993@gamil.com",
+      "customerAddress": "Đà Nẵng",
+      "customerType": "Diamond"
+    },
+    {
+      "id": 2,
+      "customerId": "KH1236",
+      "customerName": "Thinh",
+      "customerBirthday": "08/071993",
+      "customerCard": "123456789",
+      "customerPhone": "123456789",
+      "customerEmail": "thinhhv1993@gamil.com",
+      "customerAddress": "Đà Nẵng",
+      "customerType": "Platinium"
+    },
+    {
+      "id": 3,
+      "customerId": "KH1237",
+      "customerName": "Thinh",
+      "customerBirthday": "08/071993",
+      "customerCard": "123456789",
+      "customerPhone": "123456789",
+      "customerEmail": "thinhhv1993@gamil.com",
+      "customerAddress": "Đà Nẵng",
+      "customerType": "Platinium"
+    },
+    {
+      "id": 4,
+      "customerId": "KH1238",
+      "customerName": "Thinh",
+      "customerBirthday": "08/071993",
+      "customerCard": "123456789",
+      "customerPhone": "123456789",
+      "customerEmail": "thinhhv1993@gamil.com",
+      "customerAddress": "Đà Nẵng",
+      "customerType": "Gold"
+    },
+    {
+      "id": 5,
+      "customerId": "KH1239",
+      "customerName": "Thinh",
+      "customerBirthday": "08/071993",
+      "customerCard": "123456789",
+      "customerPhone": "123456789",
+      "customerEmail": "thinhhv1993@gamil.com",
+      "customerAddress": "Đà Nẵng",
+      "customerType": "Gold"
+    }
+  ],
+  "Contract": [
+    {
+      "id": 1,
+      "contractId": "HD1235",
+      "customerId": 1,
+      "serviceId": 1,
+      "contractStarDate": "10/10/2020",
+      "contractEndDate": "11/10/2020",
+      "contractDeposits": 1000000,
+      "contractTotal": 1000000000000
+    },
+    {
+      "id": 2,
+      "contractId": "HD1236",
+      "customerId": 1,
+      "serviceId": 0,
+      "contractStarDate": "10/10/2020",
+      "contractEndDate": "11/10/2020",
+      "contractDeposits": 1000000,
+      "contractTotal": 1000000000000
+    },
+    {
+      "id": 3,
+      "contractId": "HD1236",
+      "customerId": 1,
+      "serviceId": 0,
+      "contractStarDate": "10/10/2020",
+      "contractEndDate": "11/10/2020",
+      "contractDeposits": 1000000,
+      "contractTotal": 1000000000000
+    },
+    {
+      "id": 4,
+      "contractId": "HD1236",
+      "customerId": 1,
+      "serviceId": 0,
+      "contractStarDate": "10/10/2020",
+      "contractEndDate": "11/10/2020",
+      "contractDeposits": 1000000,
+      "contractTotal": 1000000000000
+    },
+    {
+      "contractId": "HD1234",
+      "customerId": "1",
+      "serviceId": "1",
+      "contractStarDate": "1990-10-10",
+      "contractEndDate": "1010-03-09",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 5
+    },
+    {
+      "contractId": "HD1234",
+      "customerId": "2",
+      "serviceId": "1",
+      "contractStarDate": "1999-10-10",
+      "contractEndDate": "2020-10-10",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 6
+    },
+    {
+      "contractId": "HD2020",
+      "customerId": "1",
+      "serviceId": "0",
+      "contractStarDate": "2020-10-10",
+      "contractEndDate": "2020-01-10",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 7
+    },
+    {
+      "contractId": "HD1000",
+      "customerId": "2",
+      "serviceId": "1",
+      "contractStarDate": "2020-10-10",
+      "contractEndDate": "2020-10-10",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 8
+    },
+    {
+      "contractId": "HD2020",
+      "customerId": "2",
+      "serviceId": "0",
+      "contractStarDate": "1990-10-10",
+      "contractEndDate": "1990-10-10",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 9
+    },
+    {
+      "contractId": "HD6789",
+      "customerId": "1",
+      "serviceId": "0",
+      "contractStarDate": "2020-10-10",
+      "contractEndDate": "2020-10-11",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 10
+    },
+    {
+      "contractId": "a",
+      "customerId": "2",
+      "serviceId": "0",
+      "contractStarDate": "2020-10-10",
+      "contractEndDate": "aa",
+      "contractDeposits": "10",
+      "contractTotal": "10",
+      "id": 11
+    }
+  ]
+}

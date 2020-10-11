@@ -11,6 +11,7 @@ import {ColorPickerComponent} from './color-picker/color-picker.component';
 import {FontSizeEditorComponent} from './font-size-editor/font-size-editor.component';
 import {PetComponent} from './pet/pet.component';
 import {FormsModule} from '@angular/forms';
+import { LikesComponent } from './likes/likes.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {FormsModule} from '@angular/forms';
     CalculatorComponent,
     ColorPickerComponent,
     FontSizeEditorComponent,
-    PetComponent
+    PetComponent,
+    LikesComponent
   ],
   imports: [
     BrowserModule,

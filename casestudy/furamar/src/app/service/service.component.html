@@ -1,0 +1,241 @@
+<br>
+<div class="container-fluid background">
+  <div class="row">
+    <div class="col-2">
+      <h3>Service List</h3>
+    </div>
+    <div class="col-2">
+      <button type="button" data-toggle="modal" data-target="#formAdd" class="btn btn-success">Add Service</button>
+    </div>
+    <div class="col-3">
+      <label style="font-weight: bold "> Search all : </label>
+      <input type="text" [(ngModel)]="term">
+    </div>
+    <div class="col-5">
+      <label style="font-weight: bold"> Search by name : </label>
+      <input type="text" [(ngModel)]="search">
+    </div>
+  </div>
+  <br>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <td>Stt</td>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Acreage</td>
+      <td>Floors</td>
+      <td>MaxNumberPeople</td>
+      <td>Cost</td>
+      <td>Status</td>
+      <td>RentalType</td>
+      <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let service of listService | paginate: { itemsPerPage: 3,currentPage: q } | filter:term | filter:search ;let i = index">
+      <td>{{i}}</td>
+      <td>{{service.serviceId}}</td>
+      <td>{{service.serviceName}}</td>
+      <td>{{service.serviceAcreage}}</td>
+      <td>{{service.serviceFloors}}</td>
+      <td>{{service.serviceMaxNumberPeople}}</td>
+      <td>{{service.serviceCost}}</td>
+      <td>{{service.serviceStatus}}</td>
+      <td>{{service.serviceRentalType}}</td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formDelete" (click)="checkDelete(service.id)">
+          Delete
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formEdit" (click)="changService(service,service.id)">
+          Edit
+        </button>
+      </td>
+    </tr>
+    </tbody>
+    <pagination-controls (pageChange)="q = $event"></pagination-controls>
+  </table>
+</div>
+<div class="modal fade" id="formDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <form [formGroup]="serviceForm">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">Delete Service</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div>
+          <p> Do you want delete Service </p>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-success mb-2" data-dismiss="modal" (click)="deleteService()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="formAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Create Service</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="serviceForm">
+        <label>ID Service</label>
+        <input class="form-control" formControlName="serviceId">
+        <div class="error" *ngIf="serviceForm.get('serviceId').touched && serviceForm.get('serviceId').invalid">Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceId').hasError('pattern')"> must Format DV-XXXX (x: 0-9)</p>
+          <p class="error" *ngIf="serviceForm.get('serviceId').hasError('required')"> must Required</p>
+        </div>
+        <label>Name Service</label>
+        <input class="form-control" formControlName="serviceName">
+        <div class="error" *ngIf="serviceForm.get('serviceName').touched && serviceForm.get('serviceName').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceName').hasError('required')"> must Required</p>
+        </div>
+        <label>Acreage Service</label>
+        <input class="form-control" formControlName="serviceAcreage">
+        <div class="error"
+             *ngIf="serviceForm.get('serviceAcreage').touched && serviceForm.get('serviceAcreage').invalid">Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceAcreage').hasError('number')"> must number > 0</p>
+          <p class="error" *ngIf="serviceForm.get('serviceAcreage').hasError('required')"> must Required</p>
+        </div>
+        <label>Floors Service</label>
+        <input class="form-control" formControlName="serviceFloors">
+        <div class="error" *ngIf="serviceForm.get('serviceFloors').touched && serviceForm.get('serviceFloors').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceFloors').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceForm.get('serviceFloors').hasError('required')"> must Required</p>
+        </div>
+        <label>Max Number People Service</label>
+        <input class="form-control" formControlName="serviceMaxNumberPeople">
+        <div class="error"
+             *ngIf="serviceForm.get('serviceMaxNumberPeople').touched && serviceForm.get('serviceMaxNumberPeople').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceMaxNumberPeople').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceForm.get('serviceMaxNumberPeople').hasError('required')"> must Required</p>
+        </div>
+        <label>Cost Service</label>
+        <input class="form-control" formControlName="serviceCost">
+        <div class="error" *ngIf="serviceForm.get('serviceCost').touched && serviceForm.get('serviceCost').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceCost').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceForm.get('serviceCost').hasError('required')"> must Required</p>
+        </div>
+        <label>Status Service</label>
+        <input class="form-control" formControlName="serviceStatus">
+        <div class="error" *ngIf="serviceForm.get('serviceStatus').touched && serviceForm.get('serviceStatus').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceStatus').hasError('required')"> must Required</p>
+        </div>
+        <label>Rent Type Service</label>
+        <input class="form-control" formControlName="serviceRentalType">
+        <div class="error"
+             *ngIf="serviceForm.get('serviceRentalType').touched && serviceForm.get('serviceRentalType').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceForm.get('serviceRentalType').hasError('serviceRentalType')"> must Required</p>
+        </div>
+        <br>
+        <div>
+          <button type="submit" class="btn btn-success mb-2" [disabled]="serviceForm.invalid" (click)="onSubmit()"
+                  data-dismiss="modal">Add
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="formEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form [formGroup]="serviceFormEdit">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">Create Service</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <input type="hidden" class="form-control" formControlName="serviceId">
+        <div class="error" *ngIf="serviceFormEdit.get('serviceId').touched && serviceFormEdit.get('serviceId').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceId').hasError('pattern')"> must Format DV-XXXX (x:
+            0-9)</p>
+          <p class="error" *ngIf="serviceFormEdit.get('serviceId').hasError('required')"> must Required</p>
+        </div>
+        <label>Name Service</label>
+        <input class="form-control" formControlName="serviceName">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceName').touched && serviceFormEdit.get('serviceName').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceName').hasError('required')"> must Required</p>
+        </div>
+        <label>Acreage Service</label>
+        <input class="form-control" formControlName="serviceAcreage">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceAcreage').touched && serviceFormEdit.get('serviceAcreage').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceAcreage').hasError('number')"> must number > 0</p>
+          <p class="error" *ngIf="serviceFormEdit.get('serviceAcreage').hasError('required')"> must Required</p>
+        </div>
+        <label>Floors Service</label>
+        <input class="form-control" formControlName="serviceFloors">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceFloors').touched && serviceFormEdit.get('serviceFloors').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceFloors').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceFormEdit.get('serviceFloors').hasError('required')"> must Required</p>
+        </div>
+        <label>Max Number People Service</label>
+        <input class="form-control" formControlName="serviceMaxNumberPeople">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceMaxNumberPeople').touched && serviceFormEdit.get('serviceMaxNumberPeople').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceMaxNumberPeople').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceFormEdit.get('serviceMaxNumberPeople').hasError('required')"> must Required</p>
+        </div>
+        <label>Cost Service</label>
+        <input class="form-control" formControlName="serviceCost">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceCost').touched && serviceFormEdit.get('serviceCost').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceCost').hasError('number')">must number > 0</p>
+          <p class="error" *ngIf="serviceFormEdit.get('serviceCost').hasError('required')"> must Required</p>
+        </div>
+        <label>Status Service</label>
+        <input class="form-control" formControlName="serviceStatus">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceStatus').touched && serviceFormEdit.get('serviceStatus').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceStatus').hasError('required')"> must Required</p>
+        </div>
+        <label>Rent Type Service</label>
+        <input class="form-control" formControlName="serviceRentalType">
+        <div class="error"
+             *ngIf="serviceFormEdit.get('serviceRentalType').touched && serviceFormEdit.get('serviceRentalType').invalid">
+          Invalid
+          <p class="error" *ngIf="serviceFormEdit.get('serviceRentalType').hasError('serviceRentalType')"> must
+            Required</p>
+        </div>
+        <br>
+        <div>
+          <button type="submit" class="btn btn-success mb-2" [disabled]="serviceFormEdit.invalid" (click)="editService()"
+                  data-dismiss="modal">Edit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

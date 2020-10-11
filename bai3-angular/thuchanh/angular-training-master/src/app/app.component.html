@@ -1,5 +1,24 @@
-<app-profile></app-profile>
-<app-calculator></app-calculator>
-<app-color-picker></app-color-picker>
-<app-font-size-editor></app-font-size-editor>
-<app-pet></app-pet>
+<!--<app-profile></app-profile>-->
+<!--<app-calculator></app-calculator>-->
+<!--<app-color-picker></app-color-picker>-->
+<!--<app-font-size-editor></app-font-size-editor>-->
+<!--<app-pet></app-pet>-->
+<h2>Today's article</h2>
+<hr>
+<div>
+<!--  <a href="{{article.url}}" target="_blank">{{article.title}}</a>-->
+  <div *ngFor="let art of articles">
+    <a href="{{art.url}}" target="_blank">{{art.title}}</a>
+    <app-likes></app-likes>
+  </div>
+</div>
+<!--<textarea [value]="article.title" cols="70" id="article-title"></textarea>-->
+<!--<textarea [value]="article.url" cols="70" id="article-url"></textarea>-->
+<!--<textarea [(ngModel)]="article.title" cols="70"></textarea>-->
+<!--<textarea [(ngModel)]="article.url" cols="70"></textarea>-->
+<!--<input (click)="updateArticle()" type="button" value="Update">-->
+<textarea  cols="70" id="article-title"></textarea>
+<textarea  cols="70" id="article-url"></textarea>
+<button (click)="addArticle()">Add</button>
+<hr>
+@CodeGym, 2019

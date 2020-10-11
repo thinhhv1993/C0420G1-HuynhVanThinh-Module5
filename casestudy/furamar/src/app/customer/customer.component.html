@@ -1,0 +1,157 @@
+<br>
+<div class="container-fluid background">
+  <div class="row">
+    <div class="col-4">
+      <h3>Customer List</h3>
+    </div>
+    <div class="col-4">
+      <button type="button" data-toggle="modal" data-target="#formAdd" class="btn btn-success" (click)="resetForm()">Add Customer</button>
+    </div>
+  </div>
+  <br>
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <td>Stt</td>
+      <td>Id</td>
+      <td>Name</td>
+      <td>Birth Day</td>
+      <td>Card</td>
+      <td>Phone</td>
+      <td>Email</td>
+      <td>Address</td>
+      <td>Type</td>
+      <td>Action</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of listCustomer | paginate: { itemsPerPage: 3,currentPage: q };let i = index">
+      <td>{{i}}</td>
+      <td>{{customer.customerId}}</td>
+      <td>{{customer.customerName}}</td>
+      <td>{{customer.customerBirthday}}</td>
+      <td>{{customer.customerCard}}</td>
+      <td>{{customer.customerPhone}}</td>
+      <td>{{customer.customerEmail}}</td>
+      <td>{{customer.customerAddress}}</td>
+      <td>{{customer.customerType}}</td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formDelete" (click)="checkDelete(customer.id,customer.customerId)">
+          Delete
+        </button>
+      </td>
+      <td>
+        <button class="btn btn-success" data-toggle="modal" data-target="#formAdd"
+                (click)="changCustomer(customer,customer.id)">
+          Edit
+        </button>
+      </td>
+    </tr>
+    </tbody>
+    <pagination-controls (pageChange)="q = $event"></pagination-controls>
+  </table>
+</div>
+<div class="modal fade" id="formDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <form [formGroup]="customerForm">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">Delete Customer</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div>
+          <p> Do you want delete Customer {{customerName}} </p>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-success mb-2" data-dismiss="modal" (click)="deleteCustomer()">
+            Delete
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="formAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="customerForm">
+        <label>ID Customer</label>
+        <input class="form-control" formControlName="customerId">
+        <div class="error" *ngIf="customerForm.get('customerId').touched && customerForm.get('customerId').invalid">Invalid
+          <p class="error" *ngIf="customerForm.get('customerId').hasError('pattern')"> must Format KH-XXXX (x: 0-9)</p>
+          <p class="error" *ngIf="customerForm.get('customerId').hasError('required')"> must Required</p>
+        </div>
+        <label>Name Customer</label>
+        <input class="form-control" formControlName="customerName">
+        <div class="error" *ngIf="customerForm.get('customerName').touched && customerForm.get('customerName').invalid">
+          Invalid
+          <p class="error" *ngIf="customerForm.get('customerName').hasError('required')"> must Required</p>
+        </div>
+        <label>Birth Day Customer</label>
+        <input type="date" class="form-control" formControlName="customerBirthday">
+        <div class="error" *ngIf="customerForm.get('customerBirthday').touched && customerForm.get('customerBirthday').invalid">Invalid
+          <p class="error" *ngIf="customerForm.get('customerBirthday').hasError('checkDate')"> must Birth Day Format dd/yy/yyyy</p>
+          <p class="error" *ngIf="customerForm.get('customerBirthday').hasError('required')"> must Required</p>
+        </div>
+        <label>Card Customer</label>
+        <input class="form-control" formControlName="customerCard">
+        <div class="error" *ngIf="customerForm.get('customerCard').touched && customerForm.get('customerCard').invalid">
+          Invalid
+          <p class="error" *ngIf="customerForm.get('customerCard').hasError('pattern')">must format xxx xxx xxx , x is number</p>
+          <p class="error" *ngIf="customerForm.get('customerCard').hasError('required')"> must Required</p>
+        </div>
+        <label>Phone Customer</label>
+        <input class="form-control" formControlName="customerPhone">
+        <div class="error"
+             *ngIf="customerForm.get('customerPhone').touched && customerForm.get('customerPhone').invalid">
+          Invalid
+          <p class="error" *ngIf="customerForm.get('customerPhone').hasError('pattern')">must format xxxx xxx xxx , x is number</p>
+          <p class="error" *ngIf="customerForm.get('customerPhone').hasError('required')"> must Required</p>
+        </div>
+        <label>Email Customer</label>
+        <input class="form-control" formControlName="customerEmail">
+        <div class="error" *ngIf="customerForm.get('customerEmail').touched && customerForm.get('customerEmail').invalid">
+          Invalid
+          <p class="error" *ngIf="customerForm.get('customerEmail').hasError('pattern')">must format is abc@gmail.com</p>
+          <p class="error" *ngIf="customerForm.get('customerEmail').hasError('required')"> must Required</p>
+        </div>
+        <label>Address Customer</label>
+        <input class="form-control" formControlName="customerAddress">
+        <div class="error" *ngIf="customerForm.get('customerAddress').touched && customerForm.get('customerAddress').invalid">
+          Invalid
+          <p class="error" *ngIf="customerForm.get('customerAddress').hasError('required')"> must Required</p>
+        </div>
+        <label>Rent Type Service</label>
+        <select class="form-control" formControlName="customerType">
+          <option value="Diamond">Diamond</option>
+          <option value="Platinium">Platinium</option>
+          <option value="Gold">Gold</option>
+          <option value="Silver">Silver</option>
+          <option value="Member">Member</option>
+        </select>
+        <br>
+        <div *ngIf="!checkForm; else edit">
+          <button type="submit" class="btn btn-success mb-2" [disabled]="customerForm.invalid" (click)="onSubmit()"
+                  data-dismiss="modal">Add
+          </button>
+        </div>
+        <ng-template #edit>
+          <button type="submit" class="btn btn-success mb-2" [disabled]="customerForm.invalid" (click)="editCustomer()"
+                  data-dismiss="modal">Edit
+          </button>
+        </ng-template>
+      </form>
+    </div>
+  </div>
+</div>
+
